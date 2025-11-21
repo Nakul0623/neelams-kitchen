@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Neelam's Kitchen - Pure Veg Cloud Kitchen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="app.js" defer></script>
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <div class="nav-left">
+      <img id="logoImage" class="logo" src="https://images.pexels.com/photos/1437267/pexels-photo-1437267.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Neelam's Kitchen" />
+      <div class="brand-text">
+        <span>Neelam's Kitchen</span>
+        <span>Pure Veg Cloud Kitchen</span>
+      </div>
+    </div>
+    <div class="nav-right">
+      <button class="nav-link active" data-nav="home">Home / Menu</button>
+      <button class="nav-link" data-nav="order">Order</button>
+      <button class="nav-link" data-nav="feedback">Feedback</button>
+      <button class="nav-link" data-nav="admin">Admin</button>
+      <button class="btn btn-outline" data-nav="order">View Cart 🛒</button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <!-- HOME / MENU -->
+  <section id="homeSection" class="active">
+    <div class="hero">
+      <div class="hero-text">
+        <h1>Freshly made pure veg meals, delivered to your door.</h1>
+        <p>Neelam’s Kitchen is a home-style cloud kitchen serving wholesome vegetarian dishes – no onion/garlic options available on request.</p>
+        <div class="hero-tags">
+          <span class="pill">🌱 100% Vegetarian</span>
+          <span class="pill">🚚 Delivery Only</span>
+          <span class="pill">💳 UPI / COD</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+          <button class="btn btn-primary" data-nav="order">Start Order</button>
+          <button class="btn btn-outline" data-nav="feedback">Leave Feedback</button>
+        </div>
+        <p class="muted" style="margin-top:0.5rem;">Order timing: 11:00 AM – 10:30 PM</p>
+      </div>
+      <div class="hero-image-wrapper">
+        <span class="hero-badge">🏠 Home-style, hygienic kitchen</span>
+        <img id="heroImage" src="https://images.pexels.com/photos/4109990/pexels-photo-4109990.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Neelam's Kitchen food" />
+      </div>
+    </div>
+
+    <div class="section-header">
+      <h2>Today’s Veg Menu</h2>
+      <div class="menu-filters">
+        <button class="btn btn-outline" data-filter="all">All</button>
+        <button class="btn btn-outline" data-filter="Thali">Thalis</button>
+        <button class="btn btn-outline" data-filter="Snacks">Snacks</button>
+        <button class="btn btn-outline" data-filter="Breads">Breads</button>
+        <button class="btn btn-outline" data-filter="Rice">Rice</button>
+      </div>
+    </div>
+
+    <div id="menuGrid" class="menu-grid"></div>
+  </section>
+
+  <!-- ORDER / CHECKOUT -->
+  <section id="orderSection">
+    <div class="section-header">
+      <h2>Review Cart & Place Order</h2>
+      <span class="muted">You can pay via UPI or choose Cash on Delivery.</span>
+    </div>
+
+    <div class="layout-two">
+      <div>
+        <div class="checkout-card">
+          <h3>Cart Items</h3>
+          <p class="muted" id="emptyCartMessage" style="display:none;margin-top:0.25rem;">Your cart is empty. Go to menu and add some dishes.</p>
+          <div id="cartList" class="checkout-list"></div>
+          <div class="divider"></div>
+          <div class="row-between">
+            <span class="muted">Subtotal</span>
+            <strong id="cartSubtotal">₹0</strong>
+          </div>
+          <div class="row-between small-text">
+            <span>Delivery</span>
+            <span>₹0 (promo)</span>
+          </div>
+          <div class="row-between" style="margin-top:0.25rem;">
+            <span><strong>Total Payable</strong></span>
+            <span><strong id="cartTotal">₹0</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="checkout-card">
+          <h3>Delivery Details</h3>
+          <form id="orderForm">
+            <label>Customer Name <span class="tag-required">*</span></label>
+            <input type="text" id="custName" required />
+
+            <label>Phone Number <span class="tag-required">*</span></label>
+            <input type="tel" id="custPhone" required />
+
+            <label>Delivery Address <span class="tag-required">*</span></label>
+            <textarea id="custAddress" required></textarea>
+
+            <label>Order Notes (optional)</label>
+            <textarea id="custNotes" placeholder="No onion/garlic, less spice, etc."></textarea>
+
+            <div class="divider"></div>
+
+            <h3>Payment Method</h3>
+            <div class="radio-row">
+              <label>
+                <input type="radio" name="paymentMethod" value="upi" checked /> UPI
+              </label>
+              <label>
+                <input type="radio" name="paymentMethod" value="cod" /> Cash on Delivery
+              </label>
+            </div>
+
+            <div id="upiDetailsBox" class="upi-box">
+              <div>
+                <span class="badge-upi">Step 1: Pay using any UPI app</span>
+                <p class="small-text" style="margin-top:0.25rem;">
+                  Scan the QR or pay to UPI ID:
+                  <strong id="upiIdDisplay">neelams-kitchen@upi</strong>
+                </p>
+                <p class="small-text">After paying, fill in your UPI name and transaction ID and (optionally) upload screenshot.</p>
+              </div>
+              <div>
+                <div class="upi-qr">
+                  <img id="upiQrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=neelams-kitchen@upi" alt="UPI QR" style="width:100%;height:100%;object-fit:cover;" />
+                </div>
+              </div>
+            </div>
+
+            <div id="upiFormFields">
+              <label>UPI Name (as shown in app)</label>
+              <input type="text" id="upiName" placeholder="Your UPI account name" />
+
+              <label>UPI Transaction ID</label>
+              <input type="text" id="upiTxnId" placeholder="e.g. 1234XXXXXX567" />
+
+              <label>Payment Screenshot (optional)</label>
+              <input type="file" id="upiScreenshot" accept="image/*" />
+            </div>
+
+            <div id="codInfo" class="alert" style="display:none;margin-top:0.4rem;">
+              <strong>Cash on Delivery:</strong> Please keep the exact amount ready for smooth delivery.
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width:100%;margin-top:0.4rem;">
+              Place Order
+            </button>
+
+            <p id="orderMessage" class="small-text" style="margin-top:0.4rem;"></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEEDBACK -->
+  <section id="feedbackSection">
+    <div class="section-header">
+      <h2>Rate Neelam’s Kitchen</h2>
+      <span class="muted">Your feedback helps us improve the taste and service.</span>
+    </div>
+
+    <div class="layout-two">
+      <div>
+        <div class="checkout-card">
+          <h3>Submit Feedback</h3>
+          <form id="feedbackForm">
+            <label>Rating</label>
+            <div class="stars" id="ratingStars">
+              <span class="star" data-value="1">★</span>
+              <span class="star" data-value="2">★</span>
+              <span class="star" data-value="3">★</span>
+              <span class="star" data-value="4">★</span>
+              <span class="star" data-value="5">★</span>
+            </div>
+            <input type="hidden" id="ratingValue" value="5" />
+
+            <label>Your Name (optional)</label>
+            <input type="text" id="feedbackName" placeholder="You can leave this blank" />
+
+            <label>Message</label>
+            <textarea id="feedbackMessage" required placeholder="Tell us about the food, packing, delivery experience..."></textarea>
+
+            <button type="submit" class="btn btn-primary" style="margin-top:0.4rem;">Submit Feedback</button>
+            <p id="feedbackStatus" class="small-text" style="margin-top:0.3rem;"></p>
+          </form>
+        </div>
+      </div>
+
+      <div>
+        <div class="checkout-card">
+          <h3>Recent Feedback</h3>
+          <div id="feedbackList" class="feedback-list small-text"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADMIN -->
+  <section id="adminSection">
+    <div id="adminLoginView">
+      <div class="admin-login-wrapper checkout-card">
+        <span class="pill-badge">Admin Only</span>
+        <h2>Admin Login</h2>
+        <p class="small-text" style="margin:0.3rem 0 0.7rem;">
+          Manage menu, orders, feedback, UPI settings & website images.
+        </p>
+        <form id="adminLoginForm">
+          <label>Admin Email</label>
+          <input type="email" id="adminEmail" required value="malavrishi204@gmail.com" />
+
+          <label>Password</label>
+          <input type="password" id="adminPassword" required placeholder="" />
+
+          <button type="submit" class="btn btn-primary" style="width:100%;margin-top:0.4rem;">Login</button>
+          <p id="adminLoginStatus" class="small-text" style="margin-top:0.4rem;"></p>
+        </form>
+      </div>
+    </div>
+
+    <div id="adminDashboardView" style="display:none;">
+      <div class="section-header">
+        <h2>Admin Dashboard</h2>
+        <div style="display:flex;gap:0.5rem;align-items:center;">
+          <span class="small-text" id="adminEmailDisplay"></span>
+          <button id="adminLogoutBtn" class="btn btn-outline">Logout</button>
+        </div>
+      </div>
+
+      <div class="admin-layout">
+        <div class="admin-sidebar">
+          <button class="admin-tab active" data-admin-tab="menu">Menu</button>
+          <button class="admin-tab" data-admin-tab="orders">Orders</button>
+          <button class="admin-tab" data-admin-tab="feedback">Feedback</button>
+          <button class="admin-tab" data-admin-tab="settings">UPI & Images</button>
+        </div>
+        <div class="admin-main">
+          <!-- MENU TAB -->
+          <div id="adminMenuTab" class="checkout-card">
+            <h3>Menu Management</h3>
+            <p class="small-text" style="margin-bottom:0.4rem;">Add, edit or remove pure veg items. Changes reflect instantly on customer menu.</p>
+
+            <form id="adminAddItemForm" style="margin-bottom:0.6rem;">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.35rem;">
+                <div>
+                  <label>Name</label>
+                  <input type="text" id="newItemName" required />
+                </div>
+                <div>
+                  <label>Category</label>
+                  <input type="text" id="newItemCategory" placeholder="Thali / Snacks / Rice / Breads..." />
+                </div>
+                <div>
+                  <label>Price (₹)</label>
+                  <input type="text" id="newItemPrice" required />
+                </div>
+                <div>
+                  <label>Image URL (optional)</label>
+                  <input type="text" id="newItemImage" placeholder="Or upload below" />
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.35rem;margin-top:0.3rem;">
+                <div>
+                  <label>Upload Image</label>
+                  <input type="file" id="newItemImageFile" accept="image/*" />
+                  <img id="newItemImagePreview" class="img-thumb" style="margin-top:0.25rem;display:none;" alt="preview" />
+                </div>
+                <div>
+                  <label>Available?</label>
+                  <select id="newItemAvailable">
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                  </select>
+                  <button type="submit" class="btn btn-primary" style="margin-top:0.4rem;">Add Item</button>
+                </div>
+              </div>
+            </form>
+
+            <div style="overflow-x:auto;">
+              <table class="table" id="adminMenuTable">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Available</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- ORDERS TAB -->
+          <div id="adminOrdersTab" class="checkout-card" style="display:none;">
+            <h3>Orders</h3>
+            <p class="small-text" style="margin-bottom:0.4rem;">All orders placed via website. Verify UPI manually using transaction details & proof.</p>
+
+            <div style="overflow-x:auto;">
+              <table class="table" id="adminOrdersTable">
+                <thead>
+                  <tr>
+                    <th>Time</th>
+                    <th>Customer</th>
+                    <th>Items</th>
+                    <th>Total</th>
+                    <th>Payment</th>
+                    <th>UPI Proof</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+  
+            </div>
+          </div>
+
+          <!-- FEEDBACK TAB -->
+          <div id="adminFeedbackTab" class="checkout-card" style="display:none;">
+            <h3>Feedback</h3>
+            <p class="small-text" style="margin-bottom:0.4rem;">View all feedback provided by customers.</p>
+
+            <div id="adminFeedbackList" class="feedback-list small-text"></div>
+          </div>
+
+          <!-- SETTINGS TAB -->
+          <div id="adminSettingsTab" class="checkout-card" style="display:none;">
+            <h3>UPI & Images Settings</h3>
+            <p class="small-text" style="margin-bottom:0.3rem;">Update UPI ID, QR code and all public images of the website.</p>
+
+            <form id="settingsForm">
+              <div class="alert">
+                <strong>UPI Settings</strong><br />
+                This information is shown on the checkout page. Admin will manually verify payments.
+              </div>
+              <label>UPI ID</label>
+              <input type="text" id="settingsUpiId" placeholder="yourname@upi" />
+
+              <label>UPI QR Image</label>
+              <input type="file" id="settingsUpiQrFile" accept="image/*" />
+              <p class="small-text">Upload a new QR image or leave blank to keep the current one.</p>
+
+              <div class="divider"></div>
+
+              <div class="alert">
+                <strong>Website Images</strong><br />
+                Update logo & hero image visible to customers.
+              </div>
+
+              <label>Logo Image URL</label>
+              <input type="text" id="settingsLogoUrl" />
+
+              <label>Upload Logo Image (optional)</label>
+              <input type="file" id="settingsLogoFile" accept="image/*" />
+              <p class="small-text">If you upload a logo file, it will override the URL above.</p>
+
+              <label>Hero Image URL</label>
+              <input type="text" id="settingsHeroUrl" />
+
+              <label>Upload Hero Image (optional)</label>
+              <input type="file" id="settingsHeroFile" accept="image/*" />
+              <p class="small-text">If you upload a hero image file, it will override the URL above.</p>
+
+
+              <button type="submit" class="btn btn-primary" style="margin-top:0.5rem;">Save Settings</button>
+              <p id="settingsStatus" class="small-text" style="margin-top:0.4rem;"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Cart bar -->
+<div id="cartBar" class="cart-bar" style="display:none;">
+  <div class="cart-bar-inner">
+    <span id="cartBarSummary">0 items</span>
+    <span id="cartBarTotal">₹0</span>
+    <button class="btn btn-primary" data-nav="order">Checkout</button>
+  </div>
+</div>
+
+</body>
+</html>
