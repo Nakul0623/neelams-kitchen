@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Neelam’s Kitchen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="font-sans text-slate-900 bg-gradient-to-b from-white to-rose-50">
+
+<!-- NAVBAR -->
+<nav class="sticky top-0 z-50 backdrop-blur bg-white/70 border-b">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <img src="images/logo.png" class="h-20 w-20 object-contain" />
+      <span class="text-2xl font-extrabold bg-gradient-to-r from-amber-600 to-rose-600 bg-clip-text text-transparent">
+        Neelam’s Kitchen
+      </span>
+    </div>
+    <div class="flex gap-6 items-center">
+      <a href="admin-login.html" class="p-2 rounded-full hover:bg-slate-100">
+        <i data-lucide="shield"></i>
+      </a>
+      <a href="https://www.zomato.com/kota/neelams-kitchen-rangbari/order" target="_blank"
+         class="px-4 py-2 bg-red-600 text-white rounded-xl font-semibold">
+        Zomato
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="bg-gradient-to-br from-amber-500 via-orange-500 to-pink-500 text-white">
+  <div class="max-w-7xl mx-auto px-6 py-32 text-center">
+    <h1 class="text-6xl md:text-7xl font-black">
+      Home-Style Food
+      <span class="block text-amber-100">Made with Love</span>
+    </h1>
+    <p class="mt-6 text-xl">Comfort food made fresh & flavorful.</p>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="py-24">
+  <div class="max-w-7xl mx-auto px-6">
+    <h2 class="text-5xl font-extrabold text-center mb-16">Our Menu</h2>
+    <div id="menuContainer"></div>
+  </div>
+</section>
+
+<!--<section class="py-24 bg-white">
+  <div class="max-w-4xl mx-auto px-6">
+    <h2 class="text-4xl font-extrabold text-center mb-12">Customer Feedback</h2>
+
+    <div class="rounded-3xl shadow-xl bg-white p-10">
+      <form id="feedbackForm" class="space-y-6">
+        <input required placeholder="Your Name"
+          class="w-full rounded-xl border px-4 py-3 focus:ring-2 focus:ring-amber-500 outline-none">
+        <textarea required rows="4" placeholder="Your Feedback"
+          class="w-full rounded-xl border px-4 py-3 focus:ring-2 focus:ring-amber-500 outline-none"></textarea>
+        <button class="w-full rounded-xl bg-amber-600 hover:bg-amber-700 text-white py-3 font-semibold">
+          Submit Feedback
+        </button>
+      </form>
+    </div>
+  </div>
+</section>  -->
+<!-- ================= FEEDBACK ================= -->
+
+-->
+<!-- ZOMATO -->
+<section class="py-20 bg-red-600 text-white text-center">
+  <h2 class="text-4xl font-extrabold mb-6">Available on Zomato</h2>
+  <p class="mb-8 text-lg">Order easily through Zomato anytime 🍽️</p>
+  <a href="https://www.zomato.com/kota/neelams-kitchen-rangbari/order" target="_blank"
+     class="inline-block bg-white text-red-600 hover:bg-red-100 rounded-2xl px-10 py-4 text-lg font-semibold">
+    Go to Zomato
+  </a>
+</section>
+
+<!-- CONTACT -->
+<section class="py-24 bg-slate-900 text-slate-100">
+  <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16">
+    <div>
+      <h2 class="text-4xl font-extrabold mb-6">Contact</h2>
+      <div class="space-y-4 text-lg">
+        <p class="flex items-center gap-3"><i data-lucide="phone"></i> +91 7340553099</p>
+        <p class="flex items-center gap-3"><i data-lucide="map-pin"></i> Kota, Rajasthan, India</p>
+      </div>
+    </div>
+
+    <div class="rounded-3xl bg-slate-800 border border-slate-700 p-10">
+      <h3 class="text-2xl font-bold mb-4">Opening Hours</h3>
+      <p>Monday – Sunday</p>
+      <p>11:00 AM – 10:00 PM</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-black text-slate-400 py-10 text-center">
+  © 2025 Neelam’s Kitchen. All rights reserved.
+</footer>
+
+<!-- SCRIPTS -->
+<script>
+  lucide.createIcons();
+
+  const defaultMenu = [
+    { name: "Dal Bati", category: "Main Course", image: "images/dal-bati.png" },
+    { name: "Aloo Poori", category: "Main Course", image: "images/aloo-poori.png" },
+    { name: "Methi Poori", category: "Main Course", image: "images/methi-poori.png" },
+    { name: "Palak Poori", category: "Main Course", image: "images/palak-poori.png" },
+
+    { name: "Aloo Paratha", category: "Paratha & Snacks", image: "images/aloo-paratha.png" },
+    { name: "Veg Rolls", category: "Paratha & Snacks", image: "images/veg-rolls.png" },
+    { name: "Paneer Rolls", category: "Paratha & Snacks", image: "images/paneer-rolls.png" },
+    { name: "Mom's Maggi", category: "Paratha & Snacks", image: "images/maggi.png" },
+    { name: "Poha", category: "Paratha & Snacks", image: "images/poha.png" },
+
+    { name: "Plain Dahi", category: "Curd Specials", image: "images/plain-dahi.png" },
+    { name: "Dahi Fry", category: "Curd Specials", image: "images/dahi-fry.png" },
+
+    { name: "Hot Coffee", category: "Beverages", image: "images/hot-coffee.png" },
+    { name: "Cold Coffee", category: "Beverages", image: "images/cold-coffee.png" },
+    { name: "Cold Oreo Coffee", category: "Beverages", image: "images/oreo-coffee.png" },
+    { name: "Lassi", category: "Beverages", image: "images/lassi.png" }
+  ];
+
+  const menuData = JSON.parse(localStorage.getItem("menu")) || defaultMenu;
+  const container = document.getElementById("menuContainer");
+
+  [...new Set(menuData.map(i => i.category))].forEach(cat => {
+    container.innerHTML += `
+      <div class="mb-20">
+        <h3 class="text-3xl font-bold mb-8 text-amber-600">${cat}</h3>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          ${menuData.filter(i => i.category === cat).map(i => `
+            <div class="bg-white rounded-3xl shadow-lg p-6 hover:scale-[1.02] transition">
+              <img src="${i.image}" class="h-44 w-full object-cover rounded-xl mb-4">
+              <h4 class="text-xl font-semibold text-center">${i.name}</h4>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    `;
+  });
+</script>
+
+</body>
+</html>

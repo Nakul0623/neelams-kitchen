@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel | Neelam’s Kitchen</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-100 min-h-screen">
+
+<!-- AUTH CHECK -->
+<script>
+  if (localStorage.getItem("adminAuth") !== "true") {
+    window.location.href = "admin-login.html";
+  }
+</script>
+
+<!-- HEADER -->
+<header class="bg-white shadow p-6 flex justify-between items-center">
+  <h1 class="text-2xl font-extrabold">Admin Panel</h1>
+  <button onclick="logout()" class="text-red-600 font-semibold">Logout</button>
+</header>
+
+<!-- MAIN -->
+<main class="max-w-6xl mx-auto p-6">
+
+  <!-- ADD MENU ITEM -->
+  <div class="bg-white rounded-3xl shadow p-6 mb-10">
+    <h2 class="text-xl font-bold mb-4">Add Menu Item</h2>
+
+    <div class="grid md:grid-cols-3 gap-4">
+      <input id="name" placeholder="Item Name" class="border rounded-xl px-4 py-3">
+      <select id="category" class="border rounded-xl px-4 py-3">
+        <option>Main Course</option>
+        <option>Paratha & Snacks</option>
+        <option>Curd Specials</option>
+        <option>Beverages</option>
+      </select>
+      <button onclick="addItem()" class="bg-amber-600 text-white rounded-xl px-6 py-3 font-semibold">
+        Add Item
+      </button>
+    </div>
+  </div>
+
+  <!-- MENU LIST -->
+  <div id="menuList" class="grid md:grid-cols-2 gap-6"></div>
+
+</main>
+
+<script>
+  let menu = JSON.parse(localStorage.getItem("menu")) || [];
+
+  function save() {
+    localStorage.setItem("menu", JSON.stringify(menu));
+    render();
+  }
+
+  function addItem() {
+    if (!name.value) return alert("Enter item name");
+    menu.push({ name: name.value, category: category.value });
+    name.value = "";
+    save();
+  }
+
+  function removeItem(i) {
+    menu.splice(i, 1);
+    save();
+  }
+
+  function render() {
+    menuList.innerHTML = "";
+    menu.forEach((item, i) => {
+      menuList.innerHTML += `
+        <div class="bg-white rounded-2xl shadow p-5 flex justify-between items-center">
+          <div>
+            <h3 class="font-bold">${item.name}</h3>
+            <p class="text-sm text-slate-500">${item.category}</p>
+          </div>
+          <button onclick="removeItem(${i})" class="text-red-600 font-semibold">Delete</button>
+        </div>
+      `;
+    });
+  }
+
+  function logout() {
+    localStorage.removeItem("adminAuth");
+    window.location.href = "admin-login.html";
+  }
+
+  render();
+</script>
+
+</body>
+</html>
